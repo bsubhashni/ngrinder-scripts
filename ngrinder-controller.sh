@@ -2,12 +2,14 @@
 
 PIDFILE=/var/run/ngrinder-controller.pid
 LOGFILE=/var/log/ngrinder-controller.log
+NGHOME=/home/user/ngrinder
 
 start() {
     echo "Starting ngrinder controller" 
     rm -rf $LOGFILE
     rm -rf $PIDFILE
-    CMD="java -XX:MaxPermSize=200m -jar wars/ngrinder-controller-3.3.war &> \"$LOGFILE\" & echo \$!"
+    rm -rf $NGHOME
+    CMD="java -XX:MaxPermSize=200m -jar wars/ngrinder-controller-3.3.war --ngrinder-home $NGHOME &> \"$LOGFILE\" & echo \$!"
     su -c "$CMD" > "$PIDFILE"
 }
 
