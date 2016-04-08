@@ -7,7 +7,7 @@ start() {
     echo "Starting ngrinder controller" 
     rm -rf $LOGFILE
     rm -rf $PIDFILE
-    CMD="java -XX:MaxPermSize=200m -jar ngrinder-controller-3.3.war &> \"$LOGFILE\" & echo \$!"
+    CMD="java -XX:MaxPermSize=200m -jar wars/ngrinder-controller-3.3.war &> \"$LOGFILE\" & echo \$!"
     su -c "$CMD" > "$PIDFILE"
 }
 
