@@ -8,7 +8,6 @@ start() {
     then
         CLTR="127.0.0.1"
     fi
-    echo "$CLTR"
     rm -rf $LOGFILE
     if [ ! -d /opt/ngrinder/$CTLR/ngrinder-monitor ];
     then
