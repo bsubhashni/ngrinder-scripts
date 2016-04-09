@@ -16,7 +16,8 @@ class Connect(object):
         def wrapper(self, *args, **kwargs):
             if self.conn == None:
                 self._start_connection()
-            func(self, *args, **kwargs)
+            result = func(self, *args, **kwargs)
+            return result
         return wrapper
 
     def _get_ssh_clients(self, iids):
@@ -34,6 +35,11 @@ class Connect(object):
         self.conn = boto.ec2.connect_to_region("us-east-1", aws_access_key_id=self.access_key,
             aws_secret_access_key=self.secret_key)
 
+
+    @_needs_connection
+    def get_ngrinder_controller_ip(self):
+        instance = self.conn.get_all_instances([ngrinder_controller_iid])[0].instances[0]
+        return instance.ip_address
 
     @_needs_connection
     def start_ssh_conns(self, node_type=''):
@@ -67,7 +73,7 @@ class Connect(object):
         assert (instance_ids == ngrinder_iids), "ngrinder instances start up failure"
 
     @_needs_connection
-    def print_all_instance_status(self):
+    def get_all_instance_status(self):
         instances = self.conn.get_all_instance_status()
-        print instances
+        return instances
 
