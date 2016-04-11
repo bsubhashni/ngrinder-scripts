@@ -15,7 +15,7 @@ start() {
         wget -O /opt/ngrinder/$CTLR/agent.tar http://$CTLR:8080/agent/download
         tar xvf /opt/ngrinder/$CTLR/agent.tar -C /opt/ngrinder/$CTLR
     fi
-    su -c "/opt/ngrinder/$CTLR/ngrinder-agent/run_agent.sh &> $LOGFILE &"
+    su -c "export JAVA_HOME=/usr/java/jdk1.7.0_79/; /opt/ngrinder/$CTLR/ngrinder-agent/run_agent.sh &> $LOGFILE &"
 }
 
 stop() {

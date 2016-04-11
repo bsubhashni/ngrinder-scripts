@@ -10,7 +10,7 @@ start() {
     rm -rf $PIDFILE
     rm -rf $NGHOME
     CMD="java -XX:MaxPermSize=200m -jar wars/ngrinder-controller-3.3.war --ngrinder-home $NGHOME &> \"$LOGFILE\" & echo \$!"
-    su -c "$CMD" > "$PIDFILE"
+    su -c "export JAVA_HOME=/usr/java/jdk1.7.0_79/; $CMD" > "$PIDFILE"
 }
 
 stop() {

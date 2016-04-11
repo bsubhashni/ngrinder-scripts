@@ -15,7 +15,7 @@ start() {
         wget -O /opt/ngrinder/$CTLR/monitor.tar http://$CTLR:8080/monitor/download
         tar xvf /opt/ngrinder/$CTLR/monitor.tar -C /opt/ngrinder/$CTLR
     fi
-    su -c "/opt/ngrinder/$CTLR/ngrinder-monitor/run_monitor.sh &> $LOGFILE &"
+    su -c "export JAVA_HOME=/usr/java/jdk1.7.0_79/; /opt/ngrinder/$CTLR/ngrinder-monitor/run_monitor.sh &> $LOGFILE &"
 }
 
 stop() {
