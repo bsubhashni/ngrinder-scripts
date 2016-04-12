@@ -16,13 +16,14 @@ parser.add_argument('--ngrinder_port', default='8080')
 opts = parser.parse_args()
 
 conn = EC2Connect.Connect(access_key=opts.access_key, secret_key=opts.secret_key, pem_file=opts.pem_file)
+
 print conn.get_all_instance_status()
 
 if opts.mode == 'install':
     conn.start_ssh_conns(node_type=opts.install_nodes)
     CBInstaller.install_nodes(conn.ssh_client_map[opts.install_nodes], opts.install_server_rpm_url, opts.install_debug_rpm_url)
 elif opts.mode == 'start_instances':
-    conn.stop_instances()
+    conn.start_instances()
 elif opts.mode == 'stop_instances':
     conn.stop_instances()
 elif opts.mode == 'get_test_status':

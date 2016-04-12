@@ -1,5 +1,4 @@
 import threading
-import ec2
 
 class Installer(threading.Thread):
     def __init__(self, **kwargs):
@@ -9,21 +8,18 @@ class Installer(threading.Thread):
         self.debug_rpm_url = kwargs['debug_rpm_url']
 
     def run(self):
-        self.run_command("ls -l")
-        '''
-        self.run_command(self.client, 'sudo /etc/init.d/couchbase-server stop')
-        self.run_command(self.client, 'sudo pkill -f memcached')
-        self.run_command(self.client, 'sudo pkill -f indexer')
-        self.run_command(self.client, 'sudo pkill -f projector')
-        self.run_command(self.client, 'sudo pkill -f beam.smp')
-        self.run_command(self.client, 'sudo pkill -f cbq-engine')
-        self.run_command(self.client, 'sudo rpm -e $(rpm -qa |grep couchbase-server)')
-        self.run_command(self.client, 'sudo wget -O server.rpm ' + self.server_rpm_url)
-        self.run_command(self.client, 'sudo rpm -ivh server.rpm')
+        self.run_command('sudo /etc/init.d/couchbase-server stop')
+        self.run_command('sudo pkill -f memcached')
+        self.run_command('sudo pkill -f indexer')
+        self.run_command('sudo pkill -f projector')
+        self.run_command('sudo pkill -f beam.smp')
+        self.run_command('sudo pkill -f cbq-engine')
+        self.run_command('sudo rpm -e $(rpm -qa |grep couchbase-server)')
+        self.run_command('sudo wget -O server.rpm ' + self.server_rpm_url)
+        self.run_command('sudo rpm -ivh server.rpm')
         if self.debug_rpm_url != '':
-            self.run_command(self.client, 'sudo wget -O server.rpm ' + self.debug_rpm_url)
-            self.run_command(self.client, 'sudo rpm -Uvh server.rpm')
-        '''
+            self.run_command('sudo wget -O server.rpm ' + self.debug_rpm_url)
+            self.run_command('sudo rpm -Uvh server.rpm')
 
     def run_command(self, cmd):
         stdin, stdout, stderr = self.client.run(cmd)
